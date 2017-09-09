@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% load staticfiles %}
+
+
+{% block title %}Добавить студента{% endblock %}
+
+
+{% block content %}
+
+    <form action="{% url 'students:add' %}" method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="Create student">
+    </form>
+
+
+{% endblock content %}
