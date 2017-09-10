@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% load staticfiles %}
+
+
+{% block title %}Добавить занятие{% endblock %}
+
+
+{% block content %}
+
+    <form action="{% url 'courses:add_lesson' %}" method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="Create lesson">
+    </form>
+
+
+{% endblock content %}

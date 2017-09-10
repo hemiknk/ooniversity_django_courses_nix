@@ -13,12 +13,15 @@
         <p>Что то там изучаем</p>
         <hr>
     </div>
+    <a href="{% url 'courses:add' %}" class="btn btn-primary" role="button">Добавить курс</a>
 
     <table class="table table-striped table-hover table-bordered">
         <thead class="">
         <tr>
             <td>Курс</td>
             <td>Описание</td>
+            <td>Изменить</td>
+            <td>Удалить</td>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +30,16 @@
                 <td><a class="navbar-text" href="{% url 'courses:detail' course.id %}">{{ course.name|upper }}</a>
                 </td>
                 <td>{{ course.short_description|title }}</td>
+                <td><a href="{% url 'courses:edit' course.id %}"
+                       class="btn btn-primary"
+                       role="button">Изменить
+                </a>
+                </td>
+                <td><a href="{% url 'courses:remove' course.id %}"
+                       class="btn btn-danger"
+                       role="button">Удалить
+                </a>
+                </td>
             </tr>
 
         {% endfor %}

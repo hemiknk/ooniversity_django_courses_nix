@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% load staticfiles %}
+
+
+{% block title %}Изменить куср{% endblock %}
+
+
+{% block content %}
+
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="Сохранить">
+    </form>
+
+
+{% endblock content %}

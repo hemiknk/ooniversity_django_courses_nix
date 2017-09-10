@@ -11,53 +11,56 @@
 
     {% include 'include/course_description.html' %}
 
-        <div class="col-md-12">
-            <hi>Преподаватели</hi>
-        </div>
+    <div class="col-md-12">
+        <hi>Преподаватели</hi>
+    </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">Учитель</div>
-                    <div class="card-block">
-                        <a href="{% url 'coaches:detail' course.coach.id %}">{{ course.coach.user.first_name }}</a>
-                        <h4 class="card-title">{{ course.coach.description }}</h4>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">Ассистент</div>
-                    <div class="card-block">
-                        <a href="{% url 'coaches:detail' course.assistant.id %}">{{ course.assistant.user.first_name }}</a>
-                        <h4 class="card-title">{{ course.assistant.description }}</h4>
-                    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Учитель</div>
+                <div class="card-block">
+                    <a href="{% url 'coaches:detail' course.coach.id %}">{{ course.coach.user.first_name }}</a>
+                    <h4 class="card-title">{{ course.coach.description }}</h4>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-12">
-            <hi>План курса</hi>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Ассистент</div>
+                <div class="card-block">
+                    <a href="{% url 'coaches:detail' course.assistant.id %}">{{ course.assistant.user.first_name }}</a>
+                    <h4 class="card-title">{{ course.assistant.description }}</h4>
+                </div>
+            </div>
         </div>
-        <table class="table table-striped table-hover table-bordered">
-            <thead class="">
+    </div>
+    <div class="col-md-12">
+        <a href="{% url 'courses:add_lesson' course.id %}" class="btn btn-primary" role="button">Добавить
+            занятие</a>
+    </div>
+    <div class="col-md-12">
+        <hi>План курса</hi>
+    </div>
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="">
+        <tr>
+            <td>#</td>
+            <td>Тема</td>
+            <td>Описание</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lesson in course.lesson_set.all %}
             <tr>
-                <td>#</td>
-                <td>Тема</td>
-                <td>Описание</td>
+                <td>{{ lesson.order }}</td>
+                <td>{{ lesson.subject }}</td>
+                <td>{{ lesson.description }}</td>
             </tr>
-            </thead>
-            <tbody>
-            {% for lesson in course.lesson_set.all %}
-                <tr>
-                    <td>{{ lesson.order }}</td>
-                    <td>{{ lesson.subject }}</td>
-                    <td>{{ lesson.description }}</td>
-                </tr>
 
-            {% endfor %}
-            </tbody>
-        </table>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock content %}
