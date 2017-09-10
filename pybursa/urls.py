@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from courses.views import CourseIndexView
+from feedbacks.views import FeedbackView
 from pybursa import views
 from quadratic.views import quadratic_result
 
@@ -28,6 +29,7 @@ urlpatterns = [
     url(r'^quadratic/results/$', quadratic_result, name='results'),
     url(r'^admin/', admin.site.urls),
     url(r'^contact/$', views.contact, name='contact'),
+    url(r'^feedback/$', FeedbackView.as_view(), name='feedback'),
     url(r'^student_list/$', views.student_list, name='student_list'),
     url(r'^student_detail/$', views.student_detail, name='student_detail'),
 ]
