@@ -8,7 +8,7 @@
 
 
 {% block content %}
-
+    {{ title }}
     <form method="post">
         {{ form.as_p }}
         {% csrf_token %}
