@@ -121,6 +121,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+ADMINS = ['test@mail.com', 'test2@mail.com']
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = '1025'
+EMAIL_USE_TLS = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
