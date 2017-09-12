@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.contrib import messages
@@ -12,10 +13,23 @@ class StudentListView(generic.ListView):
     model = Student
 
     def get_queryset(self, **kwargs):
+        page = self.request.GET.get('page')
         course_id = self.request.GET.get('course_id', None)
         if course_id:
-            return Student.objects.filter(courses=course_id)
-        return Student.objects.all()
+            students = Student.objects.filter(courses=course_id)
+        else:
+            students = Student.objects.all()
+
+        paginator = Paginator(students, 2)
+        try:
+            students = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            students = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            students = paginator.page(paginator.num_pages)
+        return students
 
 
 class StudentDetailView(generic.DetailView):
@@ -62,7 +76,7 @@ class StudentDeleteView(generic.DeleteView):
     form_class = StudentModelForm
     success_url = reverse_lazy('students:list_view')
 
-    def delete(self,  *args, **kwargs):
+    def delete(self, *args, **kwargs):
         student = Student.objects.get(id=kwargs['pk'])
         messages.success(self.request, "Info on %s  has been successfully deleted." %
                          student.get_name_surname())
@@ -74,4 +88,3 @@ class StudentDeleteView(generic.DeleteView):
         context = super().get_context_data(**kwargs)
         context.update({'title': 'Student info suppression', 'student': student.name})
         return context
-
